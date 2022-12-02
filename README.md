@@ -1,5 +1,5 @@
 # mail-service
-Microservice that utilises the [Gmail API](https://developers.google.com/gmail/api/guides/sending) to handle sending emails.
+Microservice that leverages the [Gmail API](https://developers.google.com/gmail/api/guides/sending) to send emails programmatically.
 
 ## Getting Started
 
