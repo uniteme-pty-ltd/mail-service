@@ -28,3 +28,13 @@ Start the Flask development server
 ```bash
 flask run
 ```
+
+## Deploying
+
+Will need to be behind an NGINX reverse proxy for security.
+
+> Flask is a WSGI *application*. A WSGI *server* is used to run the *application*, converting incoming HTTP requests to the standard WSGI environ, and converting outgoing WSGI responses to HTTP responses.
+>
+> WSGI servers have HTTP servers built-in. However, a dedicated HTTP server may be safer, more efficient, or more capable. Putting an HTTP server in front of the WSGI server is called a “reverse proxy.”
+>
+> [-- Flask Documentation](https://flask.palletsprojects.com/en/2.2.x/deploying/)
