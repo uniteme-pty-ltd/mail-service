@@ -9,7 +9,7 @@ creds = service_account.Credentials.from_service_account_file(
 	subject='admin@uniteme.app'
 )
 
-# Create Gmail API client
+# Create authenticated Gmail API client
 gmail_service = build('gmail', 'v1', credentials=creds)
 
 
