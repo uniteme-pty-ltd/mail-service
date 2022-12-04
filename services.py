@@ -11,3 +11,8 @@ creds = service_account.Credentials.from_service_account_file(
 
 # Create Gmail API client
 gmail_service = build('gmail', 'v1', credentials=creds)
+
+
+# creds_delegated = creds.with_subject('no-reply@uniteme.app')
+# gmail_service = build('gmail', 'v1', credentials=creds_delegated)
+# Returns {'error': 'invalid_grant', 'error_description': 'Invalid email or User ID'}
