@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, abort, request, make_response
+from werkzeug.exceptions import HTTPException
 import json
 import base64
 
@@ -26,6 +27,8 @@ def v1_send():
 	if 'base64_content' not in request_body.keys():
 		abort(400, description='Missing required field: base64_content')
 	
+
+	# TODO: Add error handling for if send_email() fails
 	# try:
 	# 	send_email(...)
 	# except Exception as e:
@@ -42,3 +45,21 @@ def v1_send():
 		200,
 		{ 'Content-Type': 'application/json' }
 	)
+
+
+
+# Ensure HTTP errors are returned as JSON
+
+@app.errorhandler(HTTPException)
+def handle_exception(error):
+	# Start with the correct headers and status code from the error
+	response = error.get_response()
+	# Replace the body with JSON
+	response.data = json.dumps({
+		"code": error.code,
+		"name": error.name,
+		"description": error.description,
+	})
+	# Set the content type header to idicate JSON
+	response.content_type = "application/json"
+	return response
