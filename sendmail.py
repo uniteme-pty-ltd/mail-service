@@ -19,15 +19,10 @@ def send_email(recipient, subject, message_content):
 	message.add_header('Content-Type','text/html')
 	message.set_payload(message_content)
 
-	
-
 	# Encode the entire message (headers, content and all) as a base64 string
-	encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
-	# print(message.as_bytes())
-
-	# Create a message body to send to the API
+	# Use it to create a message body to send to the API
 	create_message = {
-		'raw': encoded_message
+		'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()
 	}
 
 	try:

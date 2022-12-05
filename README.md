@@ -5,9 +5,10 @@ Microservice that leverages the [Gmail API](https://developers.google.com/gmail/
 
 Create virtual environemt
 ```bash
+# Note: only necessary after first cloning the repo
 python3 -m venv venv
 ```
-> Note: only necessary after first cloning the repo
+
 
 Activate virtual environment
 ```bash
@@ -20,13 +21,41 @@ venv\Scripts\activate
 
 Install dependencies within virtual environment
 ```bash
-pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib Flask
+# Note: only necessary after first cloning the repo
+pip install -r requirements.txt
 ```
-> Note: only necessary after first cloning the repo
 
 Start the Flask development server
 ```bash
 flask run
+```
+
+Dectivate virtual environment
+```bash
+deactivate
+```
+
+## API Contract
+
+### Send Email
+```
+POST https://localhost:5000/v1/send
+```
+### Request headers
+
+| Header | Value |
+| - | - |
+| Content-Type | application/json |
+| X-API-KEY | API KEY |
+
+### Request Body
+
+```json
+{
+	"recipient": string, 	// recipient's email address
+	"subject": string, 		// email subject
+	"body": string 			// email body (base64 encoded)
+}
 ```
 
 ## Deploying
