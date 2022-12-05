@@ -52,9 +52,9 @@ POST https://localhost:5000/v1/send
 
 ```json
 {
-	"recipient": string, 	// recipient's email address
-	"subject": string, 		// email subject
-	"body": string 			// email body (base64 encoded)
+	"recipient": string, 		// recipient's email address
+	"subject": string, 			// email subject
+	"base64_content": string 	// email body (base64 encoded)
 }
 ```
 

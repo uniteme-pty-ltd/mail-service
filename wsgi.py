@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, abort, request, make_response
 import json
+import base64
+
+from sendmail import send_email
 
 # Create an instance of the class
 app = Flask(__name__)
@@ -20,12 +23,22 @@ def v1_send():
 		abort(400, description='Missing required field: recipient')
 	if 'subject' not in request_body.keys():
 		abort(400, description='Missing required field: subject')
-	if 'body' not in request_body.keys():
-		abort(400, description='Missing required field: body')
+	if 'base64_content' not in request_body.keys():
+		abort(400, description='Missing required field: base64_content')
+	
+	# try:
+	# 	send_email(...)
+	# except Exception as e:
+	# 	abort(500, description=str(e))
 
-	# print(request_body['recipient'])
+	email_details = send_email(
+		request_body['recipient'].lower(),
+		request_body['subject'],
+		request_body['base64_content']
+	)
 
-	body = jsonify({
-		'hello': 'world'
-	})
-	return make_response(body, 200, { 'Content-Type': 'application/json' })
+	return make_response(
+		jsonify(email_details),
+		200,
+		{ 'Content-Type': 'application/json' }
+	)

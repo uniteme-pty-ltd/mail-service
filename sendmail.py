@@ -1,11 +1,22 @@
-import services
+from services import gmail_service
 
 import base64
 from email.message import EmailMessage
 from googleapiclient.errors import HttpError
 
 
-def send_email(recipient, subject, message_content):
+def send_email(recipient, subject, base64_message_content):
+
+	# Decode base64-encoded message content.
+	# We will re-encode it before sending, but we have to include
+	# the headers and everything in the final encoded message we send off.
+
+	# Convert base64_message_content string to bytes
+	base64_bytes = base64_message_content.encode('utf-8')
+	# Decode the bytes
+	raw_bytes = base64.b64decode(base64_bytes)
+	# Convert decoded bytes back into raw string
+	decoded_message_content = raw_bytes.decode('utf-8')
 
 	message = EmailMessage()
 	message['To'] = recipient
@@ -13,11 +24,11 @@ def send_email(recipient, subject, message_content):
 	message['Subject'] = subject
 
 	# Plain text emails
-	# message.set_content(message_content)
+	# message.set_content(decoded_message_content)
 
 	# HTML emails
 	message.add_header('Content-Type','text/html')
-	message.set_payload(message_content)
+	message.set_payload(decoded_message_content)
 
 	# Encode the entire message (headers, content and all) as a base64 string
 	# Use it to create a message body to send to the API
@@ -27,7 +38,7 @@ def send_email(recipient, subject, message_content):
 
 	try:
 		# Send the message (via Cloud service client library defined in services.py)
-		send_message = (services.gmail_service.users().messages().send(
+		send_message = (gmail_service.users().messages().send(
 			userId='me', # Indicates the authenticated user. To my understanding, this could be a literal email address if the Service Account has permission to use it, but I can't get it to work..
 			body=create_message
 		).execute())
@@ -38,7 +49,3 @@ def send_email(recipient, subject, message_content):
 		send_message = None
 
 	return send_message
-
-
-
-send_email('tscott8520@gmail.com', 'This is the subject', 'Message body in <b>html</b> format!')
