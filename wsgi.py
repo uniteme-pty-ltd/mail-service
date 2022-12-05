@@ -1,9 +1,13 @@
 from flask import Flask, jsonify, abort, request, make_response
 from werkzeug.exceptions import HTTPException
+from dotenv import load_dotenv
+from sendmail import send_email
+import os
 import json
 import base64
 
-from sendmail import send_email
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # Create an instance of the class
 app = Flask(__name__)
@@ -11,7 +15,7 @@ app = Flask(__name__)
 @app.route('/v1/send', methods=['POST'])
 def v1_send():
 
-	if request.headers.get('X-API-KEY') != 'abc123':
+	if request.headers.get('X-API-KEY') != SECRET_KEY:
 		abort(401)
 
 	# If Content-Type isn't application/json, abort with 415

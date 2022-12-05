@@ -1,14 +1,15 @@
 # mail-service
 Microservice that leverages the [Gmail API](https://developers.google.com/gmail/api/guides/sending) to send emails programmatically.
 
+This requires a Service Account to be setup in GCP with Domain-wide delegation enabled. See [here](https://developers.google.com/gmail/api/guides/sending#delegate_domain-wide_authority_to_your_service_account) for more details.
+
 ## Getting Started
 
 Create virtual environemt
 ```bash
-# Note: only necessary after first cloning the repo
+# Note: only necessary on first setup
 python3 -m venv venv
 ```
-
 
 Activate virtual environment
 ```bash
@@ -21,8 +22,17 @@ venv\Scripts\activate
 
 Install dependencies within virtual environment
 ```bash
-# Note: only necessary after first cloning the repo
+# Note: only necessary on first setup
 pip install -r requirements.txt
+```
+
+Copy the GCP Service Account's credentials file (`sa_creds.json`) into the root directory of the project. You can find this in LastPass.
+
+Copy `.env.example` to `.env` and fill in the necessary values.
+```bash
+# Note: only necessary on first setup
+cp .env.example .env
+vim .env
 ```
 
 Start the Flask development server
@@ -46,7 +56,7 @@ POST https://localhost:5000/v1/send
 | Header | Value |
 | - | - |
 | Content-Type | application/json |
-| X-API-KEY | API KEY |
+| X-API-KEY | abc123 |
 
 ### Request Body
 
@@ -59,6 +69,8 @@ POST https://localhost:5000/v1/send
 ```
 
 ## Deploying
+
+Retrieve the real SECRET_KEY from LastPass and add it to the `.env` file to secure the API.
 
 Will need to be behind an NGINX reverse proxy for security.
 
