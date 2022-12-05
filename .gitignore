@@ -1,3 +1,7 @@
+# Service account creds
+sa_creds.json
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
