@@ -16,7 +16,6 @@ def health_check():
     return make_response(
         jsonify({
             'healthy': True,
-            'secret_key': SECRET_KEY
         }),
         200,
         {'Content-Type': 'application/json'}
