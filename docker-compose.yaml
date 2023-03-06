@@ -4,16 +4,9 @@ services:
     container_name: mail-service
     ports:
       - 8080:5000 # map: local:container
-    # env_file:
-    #   - .env
-    # environment:
-    #   DB_HOST: db
-    #   DB_PORT: 5432
-    #   DB_NAME: cvshare
-    #   DB_USER: postgres
-    #   DB_PASSWORD: postgresPassword
-    #   TOKEN_TTL: 2000
-    #   JWT_PRIVATE_KEY: verysecretjwtkey
+    environment:
+      SA_CREDS_LOCATION: sa_creds.json
+      SECRET_KEY: secretindockercompose
     build:
       dockerfile: Dockerfile
       context: .

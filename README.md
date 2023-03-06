@@ -5,44 +5,13 @@ This requires a Service Account to be setup in GCP with Domain-wide delegation e
 
 ## Getting Started
 
-Create virtual environemt
+1. Copy the GCP Service Account's credentials file (`sa_creds.json`) into the root directory of the project. You can find this in LastPass.
+
+2. Ensure the environment variables are set correctly in `docker-compose.yaml`.
+
+3. Start the development server
 ```bash
-# Note: only necessary on first setup
-python3 -m venv venv
-```
-
-Activate virtual environment
-```bash
-# MacOS & Linux
-. venv/bin/activate
-
-# Windows Powershell
-venv\Scripts\activate
-```
-
-Install dependencies within virtual environment
-```bash
-# Note: only necessary on first setup
-pip install -r requirements.txt
-```
-
-Copy the GCP Service Account's credentials file (`sa_creds.json`) into the root directory of the project. You can find this in LastPass.
-
-Copy `.env.example` to `.env` and fill in the necessary values.
-```bash
-# Note: only necessary on first setup
-cp .env.example .env
-vim .env
-```
-
-Start the Flask development server
-```bash
-flask run
-```
-
-Dectivate virtual environment
-```bash
-deactivate
+docker compose up
 ```
 
 ## API Contract

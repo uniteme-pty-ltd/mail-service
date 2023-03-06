@@ -1,11 +1,9 @@
 from flask import Flask, jsonify, abort, request, make_response
 from werkzeug.exceptions import HTTPException
-from dotenv import load_dotenv
 from sendmail import send_email
 import os
 import json
 
-load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # Create an instance of the class

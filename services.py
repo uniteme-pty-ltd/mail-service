@@ -2,16 +2,14 @@
 
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
 SA_CREDS_LOCATION = os.getenv("SA_CREDS_LOCATION")
 
 creds = service_account.Credentials.from_service_account_file(
-	filename=SA_CREDS_LOCATION,
-	scopes=['https://mail.google.com/'],
-	subject='admin@uniteme.app'
+    filename=SA_CREDS_LOCATION,
+    scopes=['https://mail.google.com/'],
+    subject='admin@uniteme.app'
 )
 
 # Create authenticated Gmail API client
