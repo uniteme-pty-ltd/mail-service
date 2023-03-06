@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  api:
+    container_name: mail-service
+    ports:
+      - 8080:5000 # map: local:container
+    environment:
+      SA_CREDS_LOCATION: sa_creds.json
+      SECRET_KEY: secretindockercompose
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - .:/app
