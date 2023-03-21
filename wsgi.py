@@ -1,10 +1,7 @@
 from flask import Flask, jsonify, abort, request, make_response
 from werkzeug.exceptions import HTTPException
 from sendmail import send_email
-import os
 import json
-
-SECRET_KEY = os.getenv("SECRET_KEY")
 
 # Create an instance of the class
 app = Flask(__name__)
@@ -25,15 +22,14 @@ def health_check():
 @app.route('/v1/send', methods=['POST'])
 def v1_send():
 
-    if request.headers.get('X-API-KEY') != SECRET_KEY:
-        abort(401)
-
     # If Content-Type isn't application/json, abort with 415
     if not request.headers.get('Content-Type') or request.headers.get('Content-Type') != 'application/json':
         abort(400, description='Missing required Content-Type header: application/json')
 
     # request_body = request.get_json()
     request_body = request.json
+    if 'sender_name' not in request_body.keys():
+        abort(400, description='Missing required field: sender_name')
     if 'recipient' not in request_body.keys():
         abort(400, description='Missing required field: recipient')
     if 'subject' not in request_body.keys():
@@ -48,6 +44,7 @@ def v1_send():
     # 	abort(500, description=str(e))
 
     email_details = send_email(
+        request_body['sender_name'],
         request_body['recipient'].lower(),
         request_body['subject'],
         request_body['base64_content']
