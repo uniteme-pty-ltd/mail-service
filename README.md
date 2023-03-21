@@ -33,10 +33,10 @@ Will need to be behind an NGINX reverse proxy for security.
 
 ```bash
 # Build Docker image for production:
-docker build -t mail-service .
+docker build -t mail-service-api .
 
 # Example manually running a container with environment variables and ports defined:
-docker run -p 8080:5000 -e SECRET_KEY=findInLastPass -e SA_CREDS_LOCATION=sa_creds.json mail-service
+docker run -p 8080:80 -e SA_CREDS_LOCATION=sa_creds.json mail-service-api
 ```
 
 ## API Contract

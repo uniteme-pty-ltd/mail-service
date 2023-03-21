@@ -5,7 +5,7 @@ from email.message import EmailMessage
 from googleapiclient.errors import HttpError
 
 
-def send_email(recipient, subject, base64_message_content):
+def send_email(sender_name, recipient, subject, base64_message_content):
 
 	# Decode base64-encoded message content.
 	# We will re-encode it before sending, but we have to include
@@ -20,7 +20,7 @@ def send_email(recipient, subject, base64_message_content):
 
 	message = EmailMessage()
 	message['To'] = recipient
-	message['From'] = 'UniteMe <admin@uniteme.app>' # Changing the email here doesn't seem to be portrayed on the email that is sent. Need to investigate.
+	message['From'] = sender_name + ' <admin@uniteme.app>' # Changing the email here doesn't seem to be portrayed on the email that is sent. Need to investigate.
 	message['Subject'] = subject
 
 	# Plain text emails
