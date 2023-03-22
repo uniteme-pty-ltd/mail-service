@@ -8,6 +8,7 @@ services:
     ports:
       - 127.0.0.1:0:80
     environment:
+      FLASK_APP: wsgi.py
       SA_CREDS_LOCATION: sa_creds.json
     build:
       dockerfile: Dockerfile
