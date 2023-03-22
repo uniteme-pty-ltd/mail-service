@@ -3,21 +3,20 @@ version: '3.9'
 name: mail-service
 
 services:
+
+  ################
+  # MAIL SERVICE #
+  ################
+
   api:
     container_name: mail-service-api
-    ports:
-      - 127.0.0.1:0:80
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       FLASK_APP: wsgi.py
       SA_CREDS_LOCATION: sa_creds.json
-    build:
-      dockerfile: Dockerfile
-      context: .
     volumes:
       - .:/app
-    networks:
-      - nw
-
-networks:
-  nw:
-    name: "nw"
+    ports:
+      - 127.0.0.1:0:80
