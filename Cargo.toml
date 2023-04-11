@@ -1,0 +1,9 @@
+[package]
+name = "mail-service"
+version = "0.0.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Microservice that leverages the Gmail API to send emails programmatically"
+repository = "https://github.com/uniteme-pty-ltd/mail-service"
+
+[dependencies]
