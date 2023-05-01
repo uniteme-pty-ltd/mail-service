@@ -4,9 +4,9 @@ name: mail-service
 
 services:
 
-  #################
-  # REVERSE PROXY #
-  #################
+  ########################
+  # REVERSE PROXY: 0.1.0 #
+  ########################
   
   reverse-proxy:
     container_name: mail-service-reverse-proxy
