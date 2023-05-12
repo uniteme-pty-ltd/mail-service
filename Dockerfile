@@ -17,7 +17,4 @@ ENV FLASK_APP=wsgi.py
 
 EXPOSE 80
 
-HEALTHCHECK --interval=3s --timeout=3s --start-period=10s --retries=5 CMD [ "curl -f http://127.0.0.1/health || exit 1" ]
-# HEALTHCHECK NONE
-
 CMD ["flask", "run"]
