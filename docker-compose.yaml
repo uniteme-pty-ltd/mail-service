@@ -1,42 +1,17 @@
 version: '3.9'
-
-name: mail-service
-
 services:
-
-  ########################
-  # REVERSE PROXY: 0.1.0 #
-  ########################
-  
-  reverse-proxy:
-    container_name: mail-service-reverse-proxy
-    build:
-      context: ../reverse-proxy
-      dockerfile: Dockerfile
-      args:
-        PROFILE: dev # Faster build times for local develpment, this will be automatically changed to release if omitted
-    ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      USE_SELF_SIGNED: "true"
-      DOMAIN_MAPS: localhost:mail-service-api
-    links:
-    - "api:mail-service-api"
-
-  ################
-  # MAIL SERVICE #
-  ################
-
   api:
-    container_name: mail-service-api
+    container_name: mail-service
+    ports:
+      - '8080:8080' # map: local:container
+    # restart: always # Restarts the service whenever any defined configuration changes
+    env_file:
+      - .env
+    # environment:
+    #   - SUPER_SECRET_KEY=${SUPER_SECRET_KEY}
     build:
-      context: .
       dockerfile: Dockerfile
-    environment:
-      FLASK_APP: wsgi.py
-      SA_CREDS_LOCATION: sa_creds.json
+      context: .
+      target: dev
     volumes:
       - .:/app
-    ports:
-      - 127.0.0.1:0:80
