@@ -26,7 +26,7 @@ func SendEmail(c *gin.Context) {
 	}
 
 	fmt.Println("Email sent successfully!")
-	c.JSON(http.StatusNoContent, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"success": true,
 		"message": "Email sent successfully!",
 	})
