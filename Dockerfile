@@ -1,10 +1,14 @@
-FROM python:3-slim-bullseye
+FROM alpine:3.18.2 as release
 WORKDIR /app
 
 LABEL maintainer="Toby Scott <hi@tobyscott.dev>"
 
-RUN apt update
-RUN apt install -y curl
+RUN apk update
+RUN apk upgrade
+RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache curl
+RUN apk add --no-cache python3
+RUN apk add --no-cache py3-pip
 
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt

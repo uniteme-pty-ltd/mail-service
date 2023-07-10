@@ -8,21 +8,21 @@ services:
   # REVERSE PROXY: 0.1.0 #
   ########################
   
-  reverse-proxy:
-    container_name: mail-service-reverse-proxy
-    build:
-      context: ../reverse-proxy
-      dockerfile: Dockerfile
-      args:
-        PROFILE: dev # Faster build times for local develpment, this will be automatically changed to release if omitted
-    ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      USE_SELF_SIGNED: "true"
-      DOMAIN_MAPS: localhost:mail-service-api
-    links:
-    - "api:mail-service-api"
+  # reverse-proxy:
+  #   container_name: mail-service-reverse-proxy
+  #   build:
+  #     context: ../reverse-proxy
+  #     dockerfile: Dockerfile
+  #     args:
+  #       PROFILE: dev # Faster build times for local develpment, this will be automatically changed to release if omitted
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   environment:
+  #     USE_SELF_SIGNED: "true"
+  #     DOMAIN_MAPS: localhost:mail-service-api
+  #   links:
+  #   - "api:mail-service-api"
 
   ################
   # MAIL SERVICE #
